@@ -3,6 +3,8 @@ const root = document.documentElement;
 const $ = (id) => document.getElementById(id);
 const isMobile = matchMedia('(max-width: 900px)');
 const canHover = matchMedia('(hover: hover)');
+const hasCoarsePointer = matchMedia('(pointer: coarse)');
+const usesSidebarToggle = () => isMobile.matches || hasCoarsePointer.matches || !canHover.matches;
 
 /* ---------- SIDEBAR: slides out when the cursor reaches the left edge or the menu ---------- */
 const sidebar = $('sidebar'), edgeTab = $('edgeTab');
@@ -12,6 +14,7 @@ function renderSidebar() {
   const open = pinned || hovering;
   root.classList.toggle('sidebar-closed', !open);
   edgeTab.setAttribute('aria-expanded', open);
+  edgeTab.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
 }
 function setHover(on) {
   clearTimeout(closeTimer);
@@ -21,18 +24,18 @@ function setHover(on) {
 function setSidebar(open) {            /* used by the backdrop, Escape, and the cover logo */
   clearTimeout(closeTimer);
   pinned = open;
-  if (!open) hovering = false;
+  hovering = false;
   renderSidebar();
 }
 [edgeTab, sidebar].forEach((el) => {
-  el.addEventListener('mouseenter', () => setHover(true));
-  el.addEventListener('mouseleave', () => setHover(false));
+  el.addEventListener('mouseenter', () => { if (!usesSidebarToggle()) setHover(true); });
+  el.addEventListener('mouseleave', () => { if (!usesSidebarToggle()) setHover(false); });
 });
-edgeTab.addEventListener('focus', () => setHover(true));                 /* keyboard users */
-edgeTab.addEventListener('blur', (e) => { if (!sidebar.contains(e.relatedTarget)) setHover(false); });
-sidebar.addEventListener('focusin', () => setHover(true));
-sidebar.addEventListener('focusout', (e) => { if (!sidebar.contains(e.relatedTarget) && e.relatedTarget !== edgeTab) setHover(false); });
-edgeTab.addEventListener('click', () => { if (isMobile.matches || !canHover.matches) setSidebar(!pinned); });
+edgeTab.addEventListener('focus', () => { if (!usesSidebarToggle()) setHover(true); });   /* keyboard users */
+edgeTab.addEventListener('blur', (e) => { if (!usesSidebarToggle() && !sidebar.contains(e.relatedTarget)) setHover(false); });
+sidebar.addEventListener('focusin', () => { if (!usesSidebarToggle()) setHover(true); });
+sidebar.addEventListener('focusout', (e) => { if (!usesSidebarToggle() && !sidebar.contains(e.relatedTarget) && e.relatedTarget !== edgeTab) setHover(false); });
+edgeTab.addEventListener('click', () => { if (usesSidebarToggle()) setSidebar(!pinned); });
 $('backdrop').addEventListener('click', () => setSidebar(false));
 sidebar.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { if (isMobile.matches || pinned) setSidebar(false); }));
 window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !isMobile.matches) { setSidebar(false); if (sidebar.contains(document.activeElement)) document.activeElement.blur(); } });

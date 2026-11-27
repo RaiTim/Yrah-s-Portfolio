@@ -55,15 +55,27 @@ html.sidebar-closed .sidebar { transform: translateX(-100%); visibility: hidden;
 }
 .edge-tab::after { content: ""; position: absolute; left: 4px; top: 50%; width: 5px; height: 64px; margin-top: -32px; border-radius: 999px; background: var(--amber-gold); }
 html:not(.sidebar-closed) .edge-tab { opacity: 0; pointer-events: none; }
-@media (hover: none) {
+@media (hover: none), (pointer: coarse), (max-width: 900px) {
   .edge-tab {
-    inset: .9rem auto auto .9rem; width: 48px; height: 48px;
+    inset: calc(.9rem + env(safe-area-inset-top)) auto auto calc(.9rem + env(safe-area-inset-left)); width: 48px; height: 48px;
     border-radius: 12px; background: var(--amber-gold); box-shadow: 0 4px 14px var(--shade);
   }
   .edge-tab::after {
     left: 15px; top: 50%; width: 18px; height: 2px; margin-top: -1px;
     border-radius: 2px; background: var(--navy-dark); box-shadow: 0 -6px 0 var(--navy-dark), 0 6px 0 var(--navy-dark);
   }
+  html:not(.sidebar-closed) .edge-tab { opacity: 1; pointer-events: auto; }
+  html:not(.sidebar-closed) .edge-tab::before {
+    content: ""; position: absolute; left: 15px; top: 50%; width: 18px; height: 2px; margin-top: -1px;
+    border-radius: 2px; background: var(--navy-dark); transform: rotate(45deg);
+  }
+  html:not(.sidebar-closed) .edge-tab::after { box-shadow: none; transform: rotate(-45deg); }
+  .sidebar {
+    inset: 0 auto auto 0; width: min(320px, 88vw); height: 100vh; height: 100dvh; max-height: 100dvh;
+    padding: calc(4.5rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(1.25rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left));
+    overscroll-behavior: contain;
+  }
+  html:not(.sidebar-closed) .backdrop { display: block; position: fixed; inset: 0; z-index: 20; background: var(--shade); }
 }
 
 .brand { display: flex; align-items: center; gap: .8rem; padding: 0 .5rem 1.3rem; margin-bottom: 1rem; border-bottom: 1px solid color-mix(in srgb, var(--bg-light) 25%, transparent); }
@@ -325,8 +337,7 @@ th[scope="row"] { background: none; font-weight: 600; color: var(--text-dark); }
 
 /* ===== 13. TABLET / PHONE ===== */
 @media (max-width: 900px) {
-  .sidebar { width: min(290px, 85vw); }
-  html:not(.sidebar-closed) .backdrop { display: block; position: fixed; inset: 0; z-index: 20; background: var(--shade); }
+  .sidebar { width: min(320px, 88vw); }
   .paper-row { grid-template-columns: 1fr; gap: 1.2rem; padding: 1.4rem; }
   .paper-columns, .masonry, .cols-2, .featured, .split, .domain, .zig-card, .dtr-pair { grid-template-columns: 1fr; gap: 1.2rem; }
   .card { padding: 1.4rem; }
