@@ -32,7 +32,7 @@ edgeTab.addEventListener('focus', () => setHover(true));                 /* keyb
 edgeTab.addEventListener('blur', (e) => { if (!sidebar.contains(e.relatedTarget)) setHover(false); });
 sidebar.addEventListener('focusin', () => setHover(true));
 sidebar.addEventListener('focusout', (e) => { if (!sidebar.contains(e.relatedTarget) && e.relatedTarget !== edgeTab) setHover(false); });
-edgeTab.addEventListener('click', () => { if (!canHover.matches) setSidebar(!pinned); });   /* touch screens: tap the edge */
+edgeTab.addEventListener('click', () => { if (isMobile.matches || !canHover.matches) setSidebar(!pinned); });
 $('backdrop').addEventListener('click', () => setSidebar(false));
 sidebar.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { if (isMobile.matches || pinned) setSidebar(false); }));
 window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !isMobile.matches) { setSidebar(false); if (sidebar.contains(document.activeElement)) document.activeElement.blur(); } });
