@@ -7,7 +7,7 @@ const hasCoarsePointer = matchMedia('(pointer: coarse)');
 const usesSidebarToggle = () => isMobile.matches || hasCoarsePointer.matches || !canHover.matches;
 
 /* ---------- SIDEBAR: slides out when the cursor reaches the left edge or the menu ---------- */
-const sidebar = $('sidebar'), edgeTab = $('edgeTab');
+const sidebar = $('sidebar'), edgeTab = $('edgeTab'), sidebarClose = $('sidebarClose');
 let pinned = false, hovering = false, closeTimer = 0;
 
 function renderSidebar() {
@@ -36,6 +36,7 @@ edgeTab.addEventListener('blur', (e) => { if (!usesSidebarToggle() && !sidebar.c
 sidebar.addEventListener('focusin', () => { if (!usesSidebarToggle()) setHover(true); });
 sidebar.addEventListener('focusout', (e) => { if (!usesSidebarToggle() && !sidebar.contains(e.relatedTarget) && e.relatedTarget !== edgeTab) setHover(false); });
 edgeTab.addEventListener('click', () => { if (usesSidebarToggle()) setSidebar(!pinned); });
+sidebarClose.addEventListener('click', () => { setSidebar(false); edgeTab.focus(); });
 $('backdrop').addEventListener('click', () => setSidebar(false));
 sidebar.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { if (isMobile.matches || pinned) setSidebar(false); }));
 window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !isMobile.matches) { setSidebar(false); if (sidebar.contains(document.activeElement)) document.activeElement.blur(); } });

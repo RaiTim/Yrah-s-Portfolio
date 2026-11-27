@@ -25,7 +25,8 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { --menu-top-offset: .9rem; margin: 0; background: var(--navy-dark); color: var(--text-dark); font: 1.125rem/1.65 var(--font-body); }
-body.has-sticky-bar { --menu-top-offset: 3.75rem; }
+body.has-sticky-bar,
+body.menu-below-topbar { --menu-top-offset: 3.75rem; }
 h2, h3 { font-family: var(--font-heading); line-height: 1.15; margin: 0 0 .5em; color: var(--navy-dark); }
 h2 { font-size: clamp(2rem, 5vw, 2.8rem); }
 h3 { font-size: 1.6rem; }
@@ -47,6 +48,7 @@ a:focus-visible, summary:focus-visible, button:focus-visible { outline: 3px soli
   transition: transform .3s var(--ease), visibility 0s;
 }
 html.sidebar-closed .sidebar { transform: translateX(-100%); visibility: hidden; transition: transform .3s var(--ease), visibility 0s .3s; }
+.sidebar-close { display: none; }
 
 /* Desktop edge trigger; touch devices get a rounded hamburger button below */
 .edge-tab {
@@ -66,16 +68,17 @@ html:not(.sidebar-closed) .edge-tab { opacity: 0; pointer-events: none; }
     border-radius: 2px; background: var(--navy-dark); box-shadow: 0 -6px 0 var(--navy-dark), 0 6px 0 var(--navy-dark);
   }
   html:not(.sidebar-closed) .edge-tab { opacity: 1; pointer-events: auto; }
-  html:not(.sidebar-closed) .edge-tab::before {
-    content: ""; position: absolute; left: 15px; top: 50%; width: 18px; height: 2px; margin-top: -1px;
-    border-radius: 2px; background: var(--navy-dark); transform: rotate(45deg);
-  }
-  html:not(.sidebar-closed) .edge-tab::after { box-shadow: none; transform: rotate(-45deg); }
   .sidebar {
-    inset: 0 auto auto 0; width: min(320px, 88vw); height: 100vh; height: 100dvh; max-height: 100dvh;
+    inset: 0 auto auto 0; width: min(320px, 100vw); height: 100vh; height: 100dvh; max-height: 100dvh;
     padding: calc(4.5rem + env(safe-area-inset-top)) calc(1rem + env(safe-area-inset-right)) calc(1.25rem + env(safe-area-inset-bottom)) calc(1rem + env(safe-area-inset-left));
     overscroll-behavior: contain;
   }
+  .sidebar-close {
+    position: absolute; top: calc(.75rem + env(safe-area-inset-top)); right: calc(.75rem + env(safe-area-inset-right));
+    display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 12px;
+    background: var(--amber-gold); color: var(--navy-dark); cursor: pointer;
+  }
+  .sidebar-close svg { width: 22px; height: 22px; }
   html:not(.sidebar-closed) .backdrop { display: block; position: fixed; inset: 0; z-index: 20; background: var(--shade); }
 }
 
@@ -338,7 +341,7 @@ th[scope="row"] { background: none; font-weight: 600; color: var(--text-dark); }
 
 /* ===== 13. TABLET / PHONE ===== */
 @media (max-width: 900px) {
-  .sidebar { width: min(320px, 88vw); }
+  .sidebar { width: min(320px, 100vw); }
   .paper-row { grid-template-columns: 1fr; gap: 1.2rem; padding: 1.4rem; }
   .paper-columns, .masonry, .cols-2, .featured, .split, .domain, .zig-card, .dtr-pair { grid-template-columns: 1fr; gap: 1.2rem; }
   .card { padding: 1.4rem; }
