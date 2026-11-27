@@ -35,9 +35,14 @@ edgeTab.addEventListener('focus', () => { if (!usesSidebarToggle()) setHover(tru
 edgeTab.addEventListener('blur', (e) => { if (!usesSidebarToggle() && !sidebar.contains(e.relatedTarget)) setHover(false); });
 sidebar.addEventListener('focusin', () => { if (!usesSidebarToggle()) setHover(true); });
 sidebar.addEventListener('focusout', (e) => { if (!usesSidebarToggle() && !sidebar.contains(e.relatedTarget) && e.relatedTarget !== edgeTab) setHover(false); });
-edgeTab.addEventListener('click', () => { if (usesSidebarToggle()) setSidebar(!pinned); });
+edgeTab.addEventListener('click', () => {
+  if (!usesSidebarToggle()) return;
+  const opening = !pinned;
+  setSidebar(opening);
+  if (opening) sidebarClose.focus();
+});
 sidebarClose.addEventListener('click', () => { setSidebar(false); edgeTab.focus(); });
-$('backdrop').addEventListener('click', () => setSidebar(false));
+$('backdrop').addEventListener('click', () => { setSidebar(false); edgeTab.focus(); });
 sidebar.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { if (isMobile.matches || pinned) setSidebar(false); }));
 window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !isMobile.matches) { setSidebar(false); if (sidebar.contains(document.activeElement)) document.activeElement.blur(); } });
 renderSidebar();
