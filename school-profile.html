@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>School Profile | Patricia Yrah P. Diaz</title>
+  <meta name="description" content="School profile, schedule and evidence index of Patricia Yrah P. Diaz.">
+  <script>
+    /* Runs first: phones/tablets start with the sidebar closed */
+    document.documentElement.classList.add('js', 'scrolled');
+    if (matchMedia('(max-width: 900px)').matches) document.documentElement.classList.add('sidebar-closed');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <button class="logo-btn floating" id="floatingLogo" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
+    <img src="images/logo.png" alt="" width="52" height="52">
+  </button>
+  <button class="edge-tab" id="edgeTab" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false"></button>
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <button class="logo-btn" id="sidebarLogo" type="button" aria-label="Hide menu" aria-controls="sidebar" aria-expanded="true">
+        <img src="images/sidebar-logo.png" alt="" width="52" height="52">
+      </button>
+      <a class="brand-name" href="index.html#home">Patricia Yrah P. Diaz<small>Teaching Internship Portfolio</small></a>
+    </div>
+
+    <nav aria-label="Portfolio pages">
+      <a class="nav-link" href="index.html#home">Home</a>
+
+      <a class="nav-link nav-head" href="index.html#paper">Paper</a>
+      <a class="nav-link nav-head" href="index.html#aboutCarousel">About Me</a>
+
+      <a class="nav-link" href="index.html#pre-deployment">Pre-Deployment Seminar</a>
+
+      <details class="nav-group" open>
+        <summary>School Profile</summary>
+        <a class="nav-link sub active" href="#school-profile">School Profile</a>
+        <a class="nav-link sub" href="#school-schedule">School Schedule</a>
+        <a class="nav-link sub" href="#school-evidence">School Evidence Index</a>
+      </details>
+
+      <a class="nav-link nav-head" href="field-study-1.html">Field Study 1</a>
+    </nav>
+  </aside>
+  <div class="backdrop" id="backdrop"></div>
+
+  <main class="content subpage theme-school">
+    <div class="sheet">
+
+      <section id="school-profile" data-nav>
+        <div class="banner">
+          <img src="images/school-banner.svg" width="1920" height="560" alt="School photo (placeholder image)">
+          <div class="banner-text"><p class="crumb">School Profile</p><h2>Name of the School</h2></div>
+        </div>
+        <div class="section">
+          <div class="card">
+            <h3>School Profile</h3>
+            <p class="placeholder">Write a short description of the school where you teach.</p>
+            <dl class="facts">
+              <dt>School name</dt><dd>Add here</dd>
+              <dt>Location</dt><dd>Add here</dd>
+              <dt>School head</dt><dd>Add here</dd>
+              <dt>Grade level I handle</dt><dd>Add here</dd>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section id="school-schedule" class="section reveal" data-nav>
+        <div class="card">
+          <h3>School Schedule</h3>
+          <div class="table-wrap">
+            <table>
+              <caption>Sample rows. Replace with your real schedule.</caption>
+              <thead><tr><th>Time</th><th>Subject</th><th>Grade and section</th></tr></thead>
+              <tbody>
+                <tr><td>7:30 to 8:30</td><td>Subject</td><td>Grade / Section</td></tr>
+                <tr><td>8:30 to 9:30</td><td>Subject</td><td>Grade / Section</td></tr>
+                <tr><td>9:30 to 9:50</td><td>Recess</td><td></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="school-evidence" class="section reveal" data-nav>
+        <div class="card">
+          <h3>School Evidence Index</h3>
+          <ol class="evidence">
+            <li>Evidence 1: add title and link</li>
+            <li>Evidence 2: add title and link</li>
+            <li>Evidence 3: add title and link</li>
+          </ol>
+        </div>
+      </section>
+
+      <footer class="site-footer"><p><a href="index.html#home">&larr; Back to the portfolio</a></p><p>&copy; 2026 Patricia Yrah P. Diaz. All rights reserved.</p></footer>
+    </div>
+  </main>
+
+  <script src="common.js"></script>
+  <script src="page.js"></script>
+</body>
+</html>
