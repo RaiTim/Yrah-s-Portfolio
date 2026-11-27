@@ -236,7 +236,7 @@ html:not(.sidebar-closed) .edge-tab { opacity: 0; pointer-events: none; }
 .facts { display: grid; grid-template-columns: max-content 1fr; gap: .4rem 1.5rem; margin: 1.2rem 0 0; }
 .facts dt { font-weight: 600; color: var(--muted); }
 .facts dd { margin: 0; }
-.table-wrap { overflow-x: auto; }
+.table-wrap { width: 100%; max-width: 100%; min-width: 0; overflow-x: auto; }
 table { width: 100%; min-width: 460px; border-collapse: collapse; }
 caption { text-align: left; color: var(--muted); font-size: .95rem; padding-bottom: .5rem; }
 th, td { padding: .7rem 1rem; text-align: left; border-bottom: 1px solid var(--line); }
@@ -257,7 +257,8 @@ th { background: var(--tint-soft); color: var(--navy-dark); }
 .more-card p:last-child { margin: 0; color: var(--muted); }
 
 .section > h2 { margin-bottom: 1rem; }
-.stack { display: grid; gap: 1.4rem; }
+.stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.4rem; min-width: 0; }
+.stack > * { min-width: 0; }
 .stack > h3.sub-head { margin: .6rem 0 0; color: var(--accent); }
 .note { margin: 0; color: var(--muted); max-width: 75ch; }
 .card h3 { color: var(--accent); }
@@ -342,8 +343,10 @@ th[scope="row"] { background: none; font-weight: 600; color: var(--text-dark); }
 /* ===== 13. TABLET / PHONE ===== */
 @media (max-width: 900px) {
   .sidebar { width: min(320px, 100vw); }
+  table, .table-wide table { min-width: 0; table-layout: fixed; font-size: clamp(.75rem, 1.7vw, .875rem); }
+  th, td { padding: .4rem .45rem; overflow-wrap: anywhere; }
   .paper-row { grid-template-columns: 1fr; gap: 1.2rem; padding: 1.4rem; }
-  .paper-columns, .masonry, .cols-2, .featured, .split, .domain, .zig-card, .dtr-pair { grid-template-columns: 1fr; gap: 1.2rem; }
+  .paper-columns, .masonry, .cols-2, .featured, .split, .domain, .zig-card, .dtr-pair { grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
   .card { padding: 1.4rem; }
   .blocks { grid-template-columns: 1fr; gap: .1rem; }
   .blocks dd { margin-bottom: .8rem; }
