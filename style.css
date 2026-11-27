@@ -24,7 +24,8 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--navy-dark); color: var(--text-dark); font: 1.125rem/1.65 var(--font-body); }
+body { --menu-top-offset: .9rem; margin: 0; background: var(--navy-dark); color: var(--text-dark); font: 1.125rem/1.65 var(--font-body); }
+body.has-sticky-bar { --menu-top-offset: 3.75rem; }
 h2, h3 { font-family: var(--font-heading); line-height: 1.15; margin: 0 0 .5em; color: var(--navy-dark); }
 h2 { font-size: clamp(2rem, 5vw, 2.8rem); }
 h3 { font-size: 1.6rem; }
@@ -57,7 +58,7 @@ html.sidebar-closed .sidebar { transform: translateX(-100%); visibility: hidden;
 html:not(.sidebar-closed) .edge-tab { opacity: 0; pointer-events: none; }
 @media (hover: none), (pointer: coarse), (max-width: 900px) {
   .edge-tab {
-    inset: calc(.9rem + env(safe-area-inset-top)) auto auto calc(.9rem + env(safe-area-inset-left)); width: 48px; height: 48px;
+    inset: calc(var(--menu-top-offset) + env(safe-area-inset-top)) auto auto calc(.9rem + env(safe-area-inset-left)); width: 48px; height: 48px;
     border-radius: 12px; background: var(--amber-gold); box-shadow: 0 4px 14px var(--shade);
   }
   .edge-tab::after {
